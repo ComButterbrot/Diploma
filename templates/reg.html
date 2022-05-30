@@ -1,0 +1,497 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - Регистрация
+{% endblock %}
+
+{% block body %}
+        <div class="blocktextreg">
+            <div class="container">
+                <div class="row">
+                                <div class="col-md-12">
+                                    <p></p>
+                                    <form method="post" autocomplete="off" class="needs-validation <?echo $wasValidated?>" novalidate>
+                                        {% with messages = get_flashed_messages() %}
+                                        {% if messages %}
+                                        {% for msg in messages %}
+                                        <font size="4" color="ghostwhite" face="Arial"><b>{{ msg }}</b></font>
+                                        {% endfor %}
+                                        {% endif %}
+                                        {% endwith %}
+                                        <div class="form-group">
+                                            <label class="sr-only" for="SurnameData"><font size="4" color="ghostwhite" face="Rationale"><b>Фамилия</b></font></label>
+                                            <input type="text" class="form-control" name="surname" id="SurnameData" placeholder="Фамилия" minlength="2" maxlength="15" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="NameData"><font size="4" color="ghostwhite" face="Rationale"><b>Имя</b></font></label>
+                                            <input type="text" class="form-control" name="name" id="NameData" placeholder="Имя" minlength="2" maxlength="15" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="PatronymicData"><font size="4" color="ghostwhite" face="Rationale"><b>Отчество</b></font></label>
+                                            <input type="text" class="form-control" name="patronymic" id="PatronymicData" placeholder="Отчество" minlength="2" maxlength="15" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="MailData"><font size="4" color="ghostwhite" face="Rationale"><b>Адрес электронной почты</b></font></label>
+                                            <input type="email" class="form-control" name="mail" id="MailData"  placeholder="Адрес электронной почты" pattern="[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+" minlength="12" maxlength="64" required>
+                                        </div>
+                                        <div id="messageMail">
+                                            <p id="MailExample" class="invalidc"><font size="4" face="Arial">Пример: <b>mailname@domain.name</b></font></p>
+                                            <p id="MailLength" class="invalidc"><font size="4" face="Arial">Адрес электронной почты должен содержать не менее <b>12</b> символов.</font></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="UserLogin"><font size="4" color="ghostwhite" face="Rationale"><b>Логин</b></font></label>
+                                            <input type="text" class="form-control" name="user_login" id="UserLogin"  placeholder="Логин" minlength="8" maxlength="32" required>
+                                        </div>
+                                        <div id="messageUserLogin">
+                                            <p id="LoginLength" class="invalidc"><font size="4" face="Arial">Логин должен содержать не менее <b>8</b> символов.</font></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="PasswordData"><font size="4" color="ghostwhite" face="Rationale"><b>Пароль</b></font></label>
+                                            <input type="password" class="form-control" id="PasswordData" name="user_password" placeholder="Пароль" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" minlength="8" maxlength="32" required>
+                                        </div>
+                                        <div id="message">
+                                        <p><font size="4" color="black" face="Arial"><b>Пароль должен удовлетворять следующим требованиям:</b></font></p>
+                                        <p id="lowercase" class="invalidc"><font size="4" face="Arial">1. Содержит <b>строчные</b> буквы латинского алфавита;</font></p>
+                                        <p id="uppercase" class="invalidc"><font size="4" face="Arial">2. Содержит <b>заглавные буквы</b> латинского алфавита;</font></p>
+                                        <p id="number" class="invalidc"><font size="4" face="Arial">3. Содержит <b>цифры</b>;</font></p>
+                                        <p id="length" class="invalidc"><font size="4" face="Arial">4. Имеет длину не менее <b>8</b> символов.</font></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="sr-only" for="PasswordConfirmation"><font size="4" color="ghostwhite" face="Rationale"><b>Подтверждение пароля</b></font></label>
+                                            <input type="password" class="form-control"  id="PasswordConfirmation" name="PasswordConfirmation" placeholder="Подтверждение пароля" onChange="CheckPasswordMatch();" required>
+                                        </div>
+                                        <div id="messageConfirmation">
+                                        <p id="PasswordMatch" class="invalidc"><font size="4" face="Arial"><b>Пароли не совпадают!</b></font></p>
+                                        </div>
+                                        <p><input type="checkbox" name="Professor" id="ProfessorCheck" value="Agreed"><font size="4" color="black" face="Arial"> Я преподаватель</font></p>
+                                        <p><input type="checkbox" name="Student" id="StudentCheck" value="Agreed"><font size="4" color="black" face="Arial"> Я студент</font></p>
+                                        <div class="form-group" id="studentGroup">
+                                            <label class="sr-only" for="UserGroup"><font size="4" color="ghostwhite" face="Rationale"><b>Учебная группа</b></font></label>
+                                            <select size="1" class="form-control" name="user_group" id="UserGroup">
+                                                <option disabled selected value="Учебная группа">Учебная группа</option>
+                                                {% for group in all_groups %}
+                                                {% if group.group_id != 1 and group.group_id != 2 and group.group_id != 3 %}
+                                                <option value="{{group.group_name}}">{{group.group_name}}</option>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-reg disabled btn-block" id="Registration"><font size="4" face="Arial"><b>Зарегистрироваться</b></font></button>
+                                        </div>
+                                        <font size="4" color="black" face="Arial">У Вас уже есть аккаунт? <b><a class="loglink" href="login">Войти в существующий аккаунт</a></b></font>
+                                    </form>
+                                </div>
+                            </div>
+
+                <script type="text/javascript" src="JS/themes.js"></script>
+
+                <script>
+                    var MailInput = document.getElementById("MailData");
+                    var MailExample = document.getElementById("MailExample");
+                    var MailLength = document.getElementById("MailLength");
+
+                    MailInput.onfocus = function() {
+                        document.getElementById("messageMail").style.display = "block";
+                    }
+
+                    MailInput.onblur = function() {
+                        document.getElementById("messageMail").style.display = "none";
+                    }
+
+                    MailInput.onkeyup = function() {
+                        if(MailInput.value.match(/[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[a-zA-Z0-9]+/g)) {
+                            MailExample.classList.remove("invalidc");
+                            MailExample.classList.add("validc");
+                        }
+                        else {
+                            MailExample.classList.remove("validc");
+                            MailExample.classList.add("invalidc");
+                        }
+
+                        if(MailInput.value.length >= 12) {
+                            MailLength.classList.remove("invalidc");
+                            MailLength.classList.add("validc");
+                        }
+                        else {
+                            MailLength.classList.remove("validc");
+                            MailLength.classList.add("invalidc");
+                        }
+                    }
+                </script>
+
+                <script>
+                    var LoginInput = document.getElementById("UserLogin");
+                    var LoginLength = document.getElementById("LoginLength");
+
+                    LoginInput.onfocus = function() {
+                        document.getElementById("messageUserLogin").style.display = "block";
+                    }
+
+                    LoginInput.onblur = function() {
+                        document.getElementById("messageUserLogin").style.display = "none";
+                    }
+
+                    LoginInput.onkeyup = function() {
+                        if(LoginInput.value.length >= 8) {
+                            LoginLength.classList.remove("invalidc");
+                            LoginLength.classList.add("validc");
+                        }
+                        else {
+                            LoginLength.classList.remove("validc");
+                            LoginLength.classList.add("invalidc");
+                        }
+                    }
+                </script>
+
+                <script>
+                    var PasswordInput = document.getElementById("PasswordData");
+                    var LowerC = document.getElementById("lowercase");
+                    var UpperC = document.getElementById("uppercase");
+                    var Number = document.getElementById("number");
+                    var Length = document.getElementById("length");
+
+                    PasswordInput.onfocus = function() {
+                        document.getElementById("message").style.display = "block";
+                    }
+
+                    PasswordInput.onblur = function() {
+                        document.getElementById("message").style.display = "none";
+                    }
+
+                    PasswordInput.onkeyup = function() {
+                        var lowerCaseLetters = /[a-z]/g;
+                        if(PasswordInput.value.match(lowerCaseLetters)) {
+                            LowerC.classList.remove("invalidc");
+                            LowerC.classList.add("validc");
+                        } else {
+                            LowerC.classList.remove("validc");
+                            LowerC.classList.add("invalidc");
+                        }
+
+                        var upperCaseLetters = /[A-Z]/g;
+                        if(PasswordInput.value.match(upperCaseLetters)) {
+                            UpperC.classList.remove("invalidc");
+                            UpperC.classList.add("validc");
+                        } else {
+                            UpperC.classList.remove("validc");
+                            UpperC.classList.add("invalidc");
+                        }
+
+                        var numbers = /[0-9]/g;
+                        if(PasswordInput.value.match(numbers)) {
+                            Number.classList.remove("invalidc");
+                            Number.classList.add("validc");
+                        } else {
+                            Number.classList.remove("validc");
+                            Number.classList.add("invalidc");
+                        }
+
+                        if(PasswordInput.value.length >= 8) {
+                            Length.classList.remove("invalidc");
+                            Length.classList.add("validc");
+                        } else {
+                            Length.classList.remove("validc");
+                            Length.classList.add("invalidc");
+                        }
+                    }
+                </script>
+
+                <script>
+                    function checkPasswordMatch() {
+                        var ConfirmationInput = document.getElementById("PasswordConfirmation");
+                        var PassMatch = document.getElementById("PasswordMatch");
+                        var Password = $("#PasswordData").val();
+                        var ConfirmPassword = $("#PasswordConfirmation").val();
+
+                         ConfirmationInput.onfocus = function() {
+                             document.getElementById("messageConfirmation").style.display = "block";
+                         }
+
+                         ConfirmationInput.onblur = function() {
+                             document.getElementById("messageConfirmation").style.display = "none";
+                         }
+
+                        if (Password != ConfirmPassword) {
+                            $("#PasswordMatch").html("Пароли не совпадают!");
+                            PassMatch.classList.remove("validc");
+                            PassMatch.classList.add("invalidc");
+                        }
+                        else {
+                            $("#PasswordMatch").html("Пароли совпадают");
+                            PassMatch.classList.remove("invalidc");
+                            PassMatch.classList.add("validc");
+                        }
+                    }
+
+                    $(document).ready(function () {
+                        $("#PasswordData, #PasswordConfirmation").keyup(checkPasswordMatch);
+                    });
+                </script>
+
+                <script>
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                    var forms = document.getElementsByClassName('needs-validation');
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('Registration', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                    }, false);
+                    });
+
+
+                    var SurnameInput = document.getElementById('SurnameData');
+                    var NameInput = document.getElementById('NameData');
+                    var PatronymicInput = document.getElementById('PatronymicData');
+                    var MailInput = document.getElementById('MailData');
+                    var LoginInput = document.getElementById('UserLogin');
+
+                    var PasswordInput = document.getElementById('PasswordData');
+                    var PasswordValue = $("#PasswordData").val();
+                    var ConfirmationInput = document.getElementById('PasswordConfirmation');
+                    var ConfirmationValue = $("#PasswordConfirmation").val();
+
+                    var ProfessorInput = document.getElementById('ProfessorCheck');
+                    var StudentInput = document.getElementById('StudentCheck');
+                    var GroupInput = document.getElementById('UserGroup');
+
+                    var Registration = document.getElementById('Registration');
+
+                    SurnameInput.addEventListener("keyup", function () {
+                        if (document.getElementById('StudentCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue && GroupInput.value != "Учебная группа") {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else if (document.getElementById('ProfessorCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue) {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else {
+                            Registration.classList.add('disabled');
+                        }
+                    });
+
+                    NameInput.addEventListener("keyup", function () {
+                        if (document.getElementById('StudentCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue && GroupInput.value != "Учебная группа") {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else if (document.getElementById('ProfessorCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue) {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else {
+                            Registration.classList.add('disabled');
+                        }
+                    });
+
+                    PatronymicInput.addEventListener("keyup", function () {
+                        if (document.getElementById('StudentCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue && GroupInput.value != "Учебная группа") {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else if (document.getElementById('ProfessorCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue) {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else {
+                            Registration.classList.add('disabled');
+                        }
+                    });
+
+                    MailInput.addEventListener("keyup", function () {
+                        if (document.getElementById('StudentCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue && GroupInput.value != "Учебная группа") {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else if (document.getElementById('ProfessorCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue) {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else {
+                            Registration.classList.add('disabled');
+                        }
+                    });
+
+                    LoginInput.addEventListener("keyup", function () {
+                        if (document.getElementById('StudentCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue && GroupInput.value != "Учебная группа") {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else if (document.getElementById('ProfessorCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue) {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else {
+                            Registration.classList.add('disabled');
+                        }
+                    });
+
+                    PasswordInput.addEventListener("keyup", function () {
+                        if (document.getElementById('StudentCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue && GroupInput.value != "Учебная группа") {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else if (document.getElementById('ProfessorCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue) {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else {
+                            Registration.classList.add('disabled');
+                        }
+                    });
+
+                    ConfirmationInput.addEventListener("keyup", function () {
+                        if (document.getElementById('StudentCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue && GroupInput.value != "Учебная группа") {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else if (document.getElementById('ProfessorCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue) {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else {
+                            Registration.classList.add('disabled');
+                        }
+                    });
+
+                    GroupInput.addEventListener("change", function () {
+                        if (document.getElementById('StudentCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue && GroupInput.value != "Учебная группа") {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else if (document.getElementById('ProfessorCheck').checked == true) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue) {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else {
+                            Registration.classList.add('disabled');
+                        }
+                    });
+
+                    StudentInput.addEventListener('change', function(event) {
+                        if (event.target.checked) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue && GroupInput.value != "Учебная группа") {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else {
+                            Registration.classList.add('disabled');
+                        }
+                    });
+
+                    ProfessorInput.addEventListener('change', function(event) {
+                        if (event.target.checked) {
+                            if (SurnameInput.value.length >= 2 && NameInput.value.length >= 2 && PatronymicInput.value.length >= 2 && MailInput.value.length >= 12 && LoginInput.value.length >= 8 && PasswordInput.value.length >= 8 && PasswordValue == ConfirmationValue) {
+                                Registration.classList.remove('disabled');
+                            }
+                            else {
+                                Registration.classList.add('disabled');
+                            }
+                        }
+                        else {
+                            Registration.classList.add('disabled');
+                        }
+                    });
+                }, false);
+            })();
+        </script>
+
+                <script>
+                    var StudentInput = document.getElementById('StudentCheck');
+                    var ProfessorInput = document.getElementById('ProfessorCheck');
+                    var UserGroupInput = document.getElementById('UserGroup');
+                    StudentInput.addEventListener('change', function(event) {
+                        if (event.target.checked) {
+                            UserGroupInput.value = "Учебная группа";
+                            ProfessorInput.checked = false;
+                            document.getElementById("studentGroup").style.display = "block";
+                        } else {
+                            document.getElementById('studentGroup').style.display = "none";
+                        }
+                    })
+                    ProfessorInput.addEventListener('change', function(event) {
+                        if (event.target.checked) {
+                            UserGroupInput.value = "Преподаватель";
+                            StudentInput.checked = false;
+                            document.getElementById('studentGroup').style.display = "none";
+                        } else {
+                        }
+                    })
+                </script>
+
+            </div>
+        </div>
+{% endblock %}

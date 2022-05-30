@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - {{current_course.course_name}}
+{% endblock %}
+
+{% block body %}
+<div class="blocktextmovie">
+    {% if current_user.is_authenticated and (logged_user.uc_user_role == "Старший тьютор" or logged_user.uc_user_role == "Тьютор" or logged_user.uc_user_role == "Консультант" or logged_user.uc_user_role == "Участник") %}
+    <div class="container-fluid">
+        <div class="card-deck mb-3 text-center">
+            <div class="card maincourse mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Информация о проекте</b></font></h4>
+                </div>
+                <div class="card-body maincourse">
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <p><font size="5" color="black" face='Arial'><b>Курс: <a class="projectlink" href="maincourse={{current_maincourse.m_course_id}}">{{current_maincourse.m_course_name}}</a></b></font></p>
+                        <p><font size="4" color="black" face='Arial'><b>Название: {{current_course.course_name}}</b></font></p>
+                        <p><font size="4" color="black" face='Arial'><b>{{current_course.course_description}}</b></font></p>
+                        {% for c_user in c_users %}
+                        {% if c_user.user_id == current_course.course_creator %}
+                        <p class="moviename"><font size="4" color="black" face='Arial'><b>Создатель: {{c_user.surname}} {{c_user.name}} {{c_user.patronymic}} ({{c_user.group_name}})</b></font></p>
+                        {% endif %}
+                        {% endfor %}
+                        <p class="genreyear"><font size="4" color="black" face='Arial'><b>Дата создания: {{current_course.date.strftime('%d.%m.%Y')}}</b></font></p>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="parent-container d-flex">
+        <div class="container">
+            <div class="card-deck mb-3 text-center animationleft">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Участники проекта</b></font></h4>
+                    </div>
+                    <div class="card-body participants">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            {% for c_user in c_users %}
+                            <div class="courseusermanagement">
+                                <p class="btn btn-participant btn-block"><a href="user={{c_user.user_id}}" id="User"><font size="4" color="white" face='Arial'><b>{{c_user.surname}} {{c_user.name}} {{c_user.patronymic}} ({{c_user.group_name}}) - <u>{{c_user.uc_user_role}}</u></b></font></a></p>
+                                {% if logged_in_user_name != "NaN" and (logged_user.uc_user_role == "Старший тьютор" or logged_user.uc_user_role == "Тьютор") and c_user.user_id != logged_user.user_id and c_user.uc_user_role != "Тьютор" and c_user.uc_user_role != "Старший тьютор"%}
+                                <p class="verification"><a href="maincourse={{current_course.main_course}}-course={{current_course.course_id}}-user={{c_user.user_id}}/removeparticipant" class="btn btn-decline btn-block" id="Decline"><font size="4" color="white" face='Arial'><b>✖</b></font></a></p>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                            {% if logged_in_user_name != "NaN" and (logged_user.uc_user_role == "Старший тьютор" or logged_user.uc_user_role == "Тьютор") %}
+                            <a href="maincourse={{current_course.main_course}}-course={{current_course.course_id}}-addparticipant" class="btn btn-add btn-block" id="NewParticipant"><font size="4" face="Arial"><b>Добавить участника</b></font></a>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-deck mb-3 text-center animationleftslow">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Обсуждение проекта</b></font></h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <div class="messages" id="Discussion">
+                                <section class="discussion">
+                                    {% for u_comment in u_comments %}
+                                    {% if u_comment.user_id != logged_user.user_id %}
+                                    <div class="bubble sendername"><b><font size="4" color="#559BC6" face='Arial'><a class="projectlink" href="user={{u_comment.user_id}}">{{u_comment.name}} {{u_comment.surname}} ({{u_comment.uc_user_role}})</a></font><font size="4" color="black" face='Arial'> | {{u_comment.date.strftime('%H:%M')}} | {{u_comment.date.strftime('%d.%m.%Y')}}</font></b></div>
+                                    <div class="bubble sender"><font size="4" face='Arial'>{{u_comment.user_comment}}</font></div>
+                                    {% else %}
+                                    <div class="bubble recipientname"><b><font size="4" color="#EF5C28" face='Arial'>Я ({{u_comment.uc_user_role}})</font><font size="4" color="black" face='Arial'> | {{u_comment.date.strftime('%H:%M')}} | {{u_comment.date.strftime('%d.%m.%Y')}}</font></b></div>
+                                    <div class="bubble recipient"><font size="4" face='Arial'>{{u_comment.user_comment}}</font></div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </section>
+                            </div>
+                            <form action="" method="post" autocomplete="off" class="needs-validation" novalidate>
+                                <div class="form-group">
+                                    <label class="sr-only" for="UserComment"><font size="4" color="ghostwhite" face="Arial"><b>Comment</b></font></label>
+                                    <input type="text" class="form-control" name="user_comment" id="UserComment"  placeholder="Сообщение" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-auth disabled btn-block" id="CommentAddition"><font size="4" face="Arial"><b>Отправить</b></font></button>
+                                </div>
+                            </form>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="card-deck mb-3 text-center animationupslow">
+                <div class="card maincourse mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Семантический анализ проекта</b></font></h4>
+                    </div>
+                    <div class="card-body maincourse">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <p><font size="4" color="black" face='Arial'><b>Общее количество слов в обсуждении: {{total_words_count}}</b></font></p>
+                            <p><font size="4" color="black" face='Arial'><b>Наиболее употребительные слова:</b></font></p>
+                            {% for c_word in common_words %}
+                            <p><font size="4" color="black" face='Arial'><b>{{c_word}}</b></font></p>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container animationup">
+            <div class="card-deck mb-3 text-center animationleft">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Мероприятия</b></font></h4>
+                    </div>
+                    <div class="card-body activities">
+                        <ul class="list-unstyled mt-3 mb-4">
+                            {% for m_activity in m_activities %}
+                            <div class="card-deck mb-3 text-center">
+                                <div class="card global mb-4 shadow-sm">
+                                    <div class="card-header">
+                                        <a class="activitylink global" href="maincourse={{current_course.main_course}}-course={{current_course.course_id}}-activity={{m_activity.activity_id}}"><h4 class="my-0 font-weight-normal"><font size="5" face="Arial"><b>{{m_activity.activity_name}}</b></font></h4></a>
+                                    </div>
+                                    <div class="card-body global">
+                                        <ul class="list-unstyled mt-3 mb-4">
+                                            <p><font size="4" color="black" face='Arial'>{{m_activity.activity_description}}</font></p>
+                                            <p class="genreyear"><font size="4" color="black" face='Arial'>Дата создания: {{m_activity.date.strftime('%d.%m.%Y')}}</font></p>
+                                            <p class="moviename"><font size="4" color="black" face='Arial'><b>&#8203;</b></font></p>
+                                            <p class="genreyear"><font size="4" color="black" face='Arial'><b>Дата проведения: {{m_activity.activity_date.strftime('%d.%m.%Y')}}</b></font></p>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% for c_activity in c_activities %}
+                            <div class="card-deck mb-3 text-center">
+                                <div class="card mb-4 shadow-sm">
+                                    <div class="card-header">
+                                        <a href="maincourse={{current_course.main_course}}-course={{current_course.course_id}}-activity={{c_activity.activity_id}}"><h4 class="my-0 font-weight-normal"><font size="5" face="Arial"><b>{{c_activity.activity_name}}</b></font></h4></a>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-unstyled mt-3 mb-4">
+                                            <p><font size="4" color="black" face='Arial'>{{c_activity.activity_description}}</font></p>
+                                            <p class="genreyear"><font size="4" color="black" face='Arial'>Дата создания: {{c_activity.date.strftime('%d.%m.%Y')}}</font></p>
+                                            <p class="moviename"><font size="4" color="black" face='Arial'><b>&#8203;</b></font></p>
+                                            <p class="genreyear"><font size="4" color="black" face='Arial'><b>Дата проведения: {{c_activity.activity_date.strftime('%d.%m.%Y')}}</b></font></p>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% if current_user.is_authenticated and (logged_user.uc_user_role == "Старший тьютор" or logged_user.uc_user_role == "Тьютор") %}
+                            <a href="maincourse={{current_course.main_course}}-course={{current_course.course_id}}-newactivity" class="btn btn-add btn-block" id="NewActivity"><font size="5" face="Arial"><b>Добавить мероприятие</b></font></a>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+                    (function() {
+                        'use strict';
+                        window.addEventListener('load', function() {
+                            var forms = document.getElementsByClassName('needs-validation');
+                            var CommentInput = document.getElementById("UserComment");
+                            var CommentAddition = document.getElementById('CommentAddition');
+                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                form.addEventListener('CommentAddition', function(event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                }, false);
+                            });
+
+                                    CommentInput.onkeyup = function() {
+                                        if (CommentInput.value.length >= 1) {
+                                            CommentAddition.classList.remove('disabled');
+                                        }
+                                        else {
+                                            CommentAddition.classList.add('disabled');
+                                        }
+                                    }
+                        }, false);
+                    })();
+                </script>
+    <script>
+                var objDiv = document.getElementById("Discussion");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            </script>
+    {% endif %}
+</div>
+{% endblock %}

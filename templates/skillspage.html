@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - Компетенции
+{% endblock %}
+
+{% block body %}
+        <div class="blocktext">
+            <div class="container-fluid">
+                <div class="card-deck mb-3 text-center animationupslow">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Компетенции ЭСТ</b></font></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                {% for skill in all_skills %}
+                                <p class="btn btn-user btn-block"><font size="4" color="white" face='Arial'><b>{{skill.skill_name}}. {{skill.skill_description}}</b></font></p>
+                                {% endfor %}
+                                {% if current_user.is_authenticated and current_user.u_group_id == 1 %}
+                                <a href="secretadmin-addskill" class="btn btn-add btn-block" id="NewSkill"><font size="4" face="Arial"><b>Добавить компетенцию</b></font></a>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

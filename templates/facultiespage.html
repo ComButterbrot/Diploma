@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - Факультеты
+{% endblock %}
+
+{% block body %}
+        <div class="blocktextprofile">
+            {% if current_user.is_authenticated %}
+            <div class="container-fluid">
+                {% for faculty in all_faculties %}
+                <div class="card-deck mb-3 text-center animationleft">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>{{faculty.faculty_name}}</b></font></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                {% for department in all_departments %}
+                                {% if department.d_faculty_id == faculty.faculty_id %}
+                                <p><a href="faculty={{faculty.faculty_id}}-department={{department.department_id}}" class="btn btn-data btn-block" id="Department"><font size="4" color="white" face='Arial'><b>{{department.department_name}}</b></font></a></p>
+                                {% endif %}
+                                {% endfor %}
+                                {% if logged_in_user_name != "NaN" and current_user.u_group_id == 1%}
+                                <a href="faculty={{faculty.faculty_id}}-secretadmin-adddepartment" class="btn btn-add btn-block" id="NewGroup"><font size="4" face="Arial"><b>Добавить кафедру</b></font></a>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+{% endblock %}

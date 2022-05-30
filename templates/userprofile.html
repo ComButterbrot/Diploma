@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - {{ this_user.surname }} {{ this_user.name }} {{ this_user.patronymic }}
+{% endblock %}
+
+{% block body %}
+        <div class="blocktextprofile">
+            {% if current_user.is_authenticated %}
+            <div class="container-fluid">
+                <div class="card-deck mb-3 text-center">
+                    <div class="card maincourse mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Информация о пользователе</b></font></h4>
+                        </div>
+                        <div class="card-body maincourse">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <p><font size="4" color="black" face='Arial'><b>ФИО: {{this_user.surname}} {{this_user.name}} {{this_user.patronymic}} </b></font></p>
+                                <p><font size="4" color="black" face='Arial'><b>E-mail: {{this_user.mail}}</b></font></p>
+                                {% if this_user.u_group_id != 1 and this_user.u_group_id != 2 %}
+                                <p><font size="4" color="black" face='Arial'><b>Группа: {{user_group.group_name}}</b></font></p>
+                                <p><font size="4" color="black" face='Arial'><b>Кафедра: {{user_department.department_name}}</b></font></p>
+                                <p class="moviename"><font size="4" color="black" face='Arial'><b>Институт: {{user_faculty.faculty_name}}</b></font></p>
+                                {% else %}
+                                <p class="moviename"><font size="4" color="black" face='Arial'><b>Группа: {{user_group.group_name}}</b></font></p>
+                                {% endif %}
+                                <p class="genreyear"><font size="4" color="black" face='Arial'><b>Дата регистрации: {{this_user.date.strftime('%d.%m.%Y')}}</b></font></p>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="parent-container d-flex">
+            <div class="container">
+                {% if this_user.user_id != current_user.user_id %}
+                <a href="user={{this_user.user_id}}-dialogue" class="btn btn-message btn-block" id="NewActivity"><font size="5" face="Arial"><b>Написать сообщение</b></font></a>
+                {% endif %}
+                {% if current_user.is_authenticated and current_user.u_group_id == 1 and this_user.u_group_id == 1%}
+                <a href="secretadmin-settings" class="btn btn-message btn-block animationup" id="SettingsPanel"><font size="5" face="Arial"><b>Панель управления</b></font></a>
+                {% endif %}
+                <div class="card-deck mb-3 text-center animationleft">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Сводная характеристика</b></font></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                {% for u_characteristic in u_characteristics %}
+                                <p class="username" id="ProfessorName"><font size="4" color="black" face="Arial"><b>{{u_characteristic.surname}} {{u_characteristic.name}} {{u_characteristic.patronymic}} ({{u_characteristic.group_name}})</b></font></p>
+                                <p class="characteristicdate" id="UserCharacteristic"><font size="4" color="black" face="Arial"><b>{{u_characteristic.date.strftime('%d.%m.%Y')}}</b></font></p>
+                                <p><font size="4" color="black" face="Arial"><b>{{u_characteristic.user_characteristic}}</b></font></p>
+                                {% endfor %}
+                                {% if logged_in_user_name != "NaN" and (current_user.u_group_id == 1 or current_user.u_group_id == 2)%}
+                                <form action="" method="post" autocomplete="off" class="needs-validation" novalidate>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="UserCharacteristicData"><font size="4" color="ghostwhite" face="Arial"><b>Characteristic</b></font></label>
+                                        <input type="text" class="form-control" name="user_characteristic" id="UserCharacteristicData"  placeholder="Характеристика" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-add btn-block" id="NewUserCharacteristic"><font size="4" face="Arial"><b>Добавить характеристику</b></font></button>
+                                    </div>
+                                </form>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-deck mb-3 text-center animationleftslow">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Компетенции</b></font></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                {% for u_skill in u_skills %}
+                                <div class="usermanagement">
+                                    <p class="moviename" id="UserSkill"><font size="4" color="black" face="Arial"><b>Компетенция: {{u_skill.skill_name}}</b></font></p>
+                                    <p class="genreyear" id="SkillName"><font size="4" color="black" face="Arial"><b>Дата получения: {{u_skill.date.strftime('%d.%m.%Y')}}</b></font></p>
+                                </div>
+                                <p><font size="4" color="black" face="Arial"><b>Описание: {{u_skill.skill_description}}</b></font></p><br>
+                                {% endfor %}
+                                {% if current_user.is_authenticated and (current_user.u_group_id == 1 or current_user.u_group_id == 2) %}
+                                <a href="user={{this_user.user_id}}-adduserskill" class="btn btn-add btn-block" id="NewUserSkill"><font size="4" face="Arial"><b>Добавить компетенцию</b></font></a>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                {% for u_course in u_courses %}
+                <div class="card-deck mb-3 text-center animationup">
+                    <div class="card global mb-4 shadow-sm">
+                        <div class="card-header">
+                            <a href="maincourse={{u_course.m_course_id}}"><h4 class="my-0 font-weight-normal"><font size="5" face="Arial"><b>{{u_course.m_course_name}}</b></font></h4></a>
+                        </div>
+                        <div class="card-body global">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <p><font size="4" color="black" face='Arial'>{{u_course.m_course_description}}</font></p>
+                                <p class="genreyear"><font size="4" color="black" face='Arial'>Роль: Главный организатор</font></p>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% for p_course in p_courses %}
+                <div class="card-deck mb-3 text-center animationup">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <a href="maincourse={{p_course.m_course_id}}"><h4 class="my-0 font-weight-normal"><font size="5" face="Arial"><b>{{p_course.m_course_name}}</b></font></h4></a>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <p><font size="4" color="black" face='Arial'>{{p_course.m_course_description}}</font></p>
+                                <p class="genreyear"><font size="4" color="black" face='Arial'>Роль: {{p_course.uc_user_role}}</font></p>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            </div>
+                <script>
+                    (function() {
+                        'use strict';
+                        window.addEventListener('load', function() {
+                            var forms = document.getElementsByClassName('needs-validation');
+                            var CharacteristicInput = document.getElementById("UserCharacteristicData");
+                            var NewUserCharacteristic = document.getElementById('NewUserCharacteristic');
+                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                form.addEventListener('NewUserCharacteristic', function(event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                }, false);
+                            });
+
+                                    CharacteristicInput.onkeyup = function() {
+                                        if (CharacteristicInput.value.length >= 1) {
+                                            NewUserCharacteristic.classList.remove('disabled');
+                                        }
+                                        else {
+                                            NewUserCharacteristic.classList.add('disabled');
+                                        }
+                                    }
+                        }, false);
+                    })();
+                </script>
+            {% endif %}
+        </div>
+{% endblock %}

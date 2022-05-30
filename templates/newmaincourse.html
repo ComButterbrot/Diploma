@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - Регистрация интенсива
+{% endblock %}
+
+{% block body %}
+        <div class="blocktextnewmovie">
+{% if current_user.is_authenticated and (current_user.u_group_id == 1 or current_user.u_group_id == 2) %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p></p>
+                        <form action="" method="post" autocomplete="off" class="needs-validation" novalidate>
+                            <div class="form-group">
+                                <label class="sr-only" for="CourseData"><font size="4" color="ghostwhite" face="Rationale"><b>Title of the Project</b></font></label>
+                                <input type="text" class="form-control" name="course_name" id="CourseData"  placeholder="Интенсив" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="DescriptionData"><font size="4" color="ghostwhite" face="Rationale"><b>Description of the Project</b></font></label>
+                                <input type="text" class="form-control" id="DescriptionData" name="course_description" placeholder="Описание" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-auth disabled btn-block" id="FineAddition"><font size="4" face="Arial"><b>Зарегистрировать интенсив</b></font></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <script>
+                    (function() {
+                        'use strict';
+                        window.addEventListener('load', function() {
+                            var forms = document.getElementsByClassName('needs-validation');
+                            var CourseInput = document.getElementById("CourseData");
+                            var DescriptionInput = document.getElementById("DescriptionData");
+                            var FineAddition = document.getElementById('FineAddition');
+                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                form.addEventListener('FineAddition', function(event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                }, false);
+                            });
+
+                                    CourseInput.onkeyup = function() {
+                                        if (CourseInput.value.length >= 1 && DescriptionInput.value.length >= 1) {
+                                            FineAddition.classList.remove('disabled');
+                                        }
+                                        else {
+                                            FineAddition.classList.add('disabled');
+                                        }
+                                    }
+                                    DescriptionInput.onkeyup = function() {
+                                        if (CourseInput.value.length >= 1 && DescriptionInput.value.length >= 1) {
+                                            FineAddition.classList.remove('disabled');
+                                        }
+                                        else {
+                                            FineAddition.classList.add('disabled');
+                                        }
+                                    }
+                        }, false);
+                    })();
+                </script>
+            </div>
+{% endif %}
+        </div>
+{% endblock %}

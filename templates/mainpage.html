@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Электронная система тьюторства КГУ
+{% endblock %}
+
+{% block body %}
+        <div class="blocktext">
+            {% if current_user.is_authenticated %}
+            <div class="container-fluid">
+                {% for u_course in u_courses %}
+                <div class="card-deck mb-3 text-center animationup">
+                    <div class="card global mb-4 shadow-sm">
+                        <div class="card-header">
+                            <a href="maincourse={{u_course.m_course_id}}"><h4 class="my-0 font-weight-normal moviename"><font size="5" face="Arial"><b>{{u_course.m_course_name}}</b></font></h4></a>
+                        </div>
+                        <div class="card-body global">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <p><font size="4" color="black" face='Arial'>{{u_course.m_course_description}}</font></p>
+                                <p class="genreyear"><font size="4" color="black" face='Arial'>Роль: Главный организатор</font></p>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% for p_course in p_courses %}
+                <div class="card-deck mb-3 text-center animationup">
+                    <div class="card maincourse mb-4 shadow-sm">
+                        <div class="card-header">
+                            <a href="maincourse={{p_course.m_course_id}}"><h4 class="my-0 font-weight-normal moviename"><font size="5" face="Arial"><b>{{p_course.m_course_name}}</b></font></h4></a>
+                        </div>
+                        <div class="card-body maincourse">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <p><font size="4" color="black" face='Arial'>{{p_course.m_course_description}}</font></p>
+                                <p class="genreyear"><font size="4" color="black" face='Arial'>Роль: {{p_course.uc_user_role}}</font></p>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="parent-container d-flex">
+            <div class="container">
+                <video width="768" height="768" autoplay muted loop>
+                    <source src="{{ url_for('static', filename='techimages/TutorVideo.mp4') }}" type="video/mp4">
+                </video>
+            </div>
+            <div class="container animationdown">
+                <img src="{{ url_for('static', filename='techimages/TutorPlate.png') }}" />
+            </div>
+            </div>
+            {% endif %}
+        </div>
+{% endblock %}

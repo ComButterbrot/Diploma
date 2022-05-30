@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - Добавление факультета
+{% endblock %}
+
+{% block body %}
+        <div class="blocktextnewfaculty">
+            {% if current_user.is_authenticated and current_user.u_group_id == 1 %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p></p>
+                        <form action="" method="post" autocomplete="off" class="needs-validation" novalidate>
+                            <div class="form-group">
+                                <label class="sr-only" for="FacultyData"><font size="4" color="ghostwhite" face="Rationale"><b>Наименование института</b></font></label>
+                                <input type="text" class="form-control" name="faculty_name" id="FacultyData"  placeholder="Наименование института" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-auth disabled btn-block" id="FineAddition"><font size="4" face="Arial"><b>Добавить институт</b></font></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <script>
+                    (function() {
+                        'use strict';
+                        window.addEventListener('load', function() {
+                            var forms = document.getElementsByClassName('needs-validation');
+                            var FacultyInput = document.getElementById("FacultyData");
+                            var FineAddition = document.getElementById('FineAddition');
+                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                form.addEventListener('FineAddition', function(event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                }, false);
+                            });
+
+                                    FacultyInput.onkeyup = function() {
+                                        if (FacultyInput.value.length >= 1) {
+                                            FineAddition.classList.remove('disabled');
+                                        }
+                                        else {
+                                            FineAddition.classList.add('disabled');
+                                        }
+                                    }
+                        }, false);
+                    })();
+                </script>
+            </div>
+            {% endif %}
+        </div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - Авторизация
+{% endblock %}
+
+{% block body %}
+        <div class="blocktextauth">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p></p>
+                        <form action="" method="post" autocomplete="off" class="needs-validation" novalidate>
+                            <div class="form-group">
+                                <label class="sr-only" for="UserLogin"><font size="4" color="ghostwhite" face="Arial"><b>Login</b></font></label>
+                                <input type="text" class="form-control" name="user_login" id="UserLogin"  placeholder="Имя пользователя" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="sr-only" for="PasswordData"><font size="4" color="ghostwhite" face="Arial"><b>Password</b></font></label>
+                                <input type="password" class="form-control" id="PasswordData" name="user_password" placeholder="Пароль" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-auth disabled btn-block" id="Authorization"><font size="4" face="Arial"><b>Войти</b></font></button>
+                            </div>
+                            {% with messages = get_flashed_messages() %}
+                                {% if messages %}
+                                    {% for msg in messages %}
+                                        <font size="4" color="black" face="Arial"><b>{{ msg }}</b></font>
+                                    {% endfor %}
+                                {% endif %}
+                            {% endwith %}
+                            <p><font size="4" color="black" face="Arial">Вы ещё не зарегистрированы? <b><a class="loglink" href="signup">Зарегистрироваться</a></b></font></p>
+                            <p class="statistics"><font size="4" face="sans-serif">
+                        </form>
+                    </div>
+                </div>
+                
+                <script type="text/javascript" src="JS/autothemes.js"></script>
+                <script>
+                    (function() {
+                        'use strict';
+                        window.addEventListener('load', function() {
+                            var forms = document.getElementsByClassName('needs-validation');
+                            var LoginInput = document.getElementById("UserLogin");
+                            var PasswordInput = document.getElementById("PasswordData");
+                            var Authorization = document.getElementById('Authorization');
+                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                form.addEventListener('Authorization', function(event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                }, false);
+                            });
+
+                                    LoginInput.onkeyup = function() {
+                                        if (LoginInput.value.length >= 8 && PasswordInput.value.length >= 8) {
+                                            Authorization.classList.remove('disabled');
+                                        }
+                                        else {
+                                            Authorization.classList.add('disabled');
+                                        }
+                                    }
+                                    PasswordInput.onkeyup = function() {
+                                        if (LoginInput.value.length >= 8 && PasswordInput.value.length >= 8) {
+                                            Authorization.classList.remove('disabled');
+                                        }
+                                        else {
+                                            Authorization.classList.add('disabled');
+                                        }
+                                    }
+                        }, false);
+                    })();
+                </script>
+                
+            </div>
+        </div>
+{% endblock %}

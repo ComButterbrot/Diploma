@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - Подтверждение компетенции
+{% endblock %}
+
+{% block body %}
+        <div class="blocktextnewfaculty">
+            {% if current_user.is_authenticated and (current_user.u_group_id == 1 or current_user.u_group_id == 2) %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p></p>
+                        <form action="" method="post" autocomplete="off" class="needs-validation" novalidate>
+                            <div class="form-group">
+                                <label class="sr-only" for="SkillData"><font size="4" color="ghostwhite" face="Rationale"><b>Учебная группа</b></font></label>
+                                <select size="1" class="form-control" name="user_skill" id="SkillData">
+                                    <option disabled selected value="Компетенция">Компетенция</option>
+                                    {% for skill in all_skills %}
+                                    <option value="{{skill.skill_id}}">{{skill.skill_name}}. {{skill.skill_description}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-auth disabled btn-block" id="FineAddition"><font size="4" face="Arial"><b>Подтвердить компетенцию</b></font></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <script>
+                    (function() {
+                        'use strict';
+                        window.addEventListener('load', function() {
+                            var forms = document.getElementsByClassName('needs-validation');
+                            var SkillInput = document.getElementById("SkillData");
+                            var FineAddition = document.getElementById('FineAddition');
+                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                form.addEventListener('FineAddition', function(event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                }, false);
+                            });
+
+                                    SkillInput.onkeyup = function() {
+                                        if (FacultyInput.value.length >= 1) {
+                                            FineAddition.classList.remove('disabled');
+                                        }
+                                        else {
+                                            FineAddition.classList.add('disabled');
+                                        }
+                                    }
+
+                                    SkillInput.addEventListener('change', function(event) {
+                                        if (SkillInput.value != "Компетенция") {
+                                            FineAddition.classList.remove('disabled');
+                                        }
+                                        else {
+                                            FineAddition.classList.add('disabled');
+                                        }
+                                    });
+
+                        }, false);
+                    })();
+                </script>
+            </div>
+            {% endif %}
+        </div>
+{% endblock %}

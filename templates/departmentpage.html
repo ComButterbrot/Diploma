@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - {{current_department.department_name}} - Группы
+{% endblock %}
+
+{% block body %}
+        <div class="blocktext">
+            <div class="container-fluid">
+                <div class="card-deck mb-3 text-center animationupslow">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>{{current_department.department_name}}</b></font></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                {% for group in valid_groups %}
+                                <p><a href="faculty={{faculty_id}}-department={{current_department.department_id}}-group={{group.group_id}}" class="btn btn-data btn-block" id="Group"><font size="4" color="white" face='Arial'><b>{{group.group_name}}</b></font></a></p>
+                                {% endfor %}
+                                {% if current_user.is_authenticated and current_user.u_group_id == 1%}
+                                <a href="faculty={{faculty_id}}-department={{current_department.department_id}}-secretadmin-addgroup" class="btn btn-add btn-block" id="NewGroup"><font size="4" face="Arial"><b>Добавить группу</b></font></a>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if logged_in_user_name == "NaN" %}
+            {% endif %}
+        </div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - Личные сообщения
+{% endblock %}
+
+{% block body %}
+        <div class="blocktextprofile">
+            {% if current_user.is_authenticated %}
+            <div class="container-fluid">
+                <div class="card-deck mb-3 text-center animationup">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal"><a href="user={{this_user.user_id}}" id="Interlocutor"><font size="5" color="white" face="Arial"><b>{{this_user.surname}} {{this_user.name}} {{this_user.patronymic}}, {{this_user.group_name}}</b></font></a></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <div class="privatemessages" id="Discussion">
+                                <section class="discussion">
+                                {% for message in user_messages %}
+                                {% if message.m_sender_id != current_user.user_id %}
+                                <div class="bubble sendername"><font size="4" color="black" face='Arial'><b>{{message.surname}} {{message.name}} {{message.patronymic}} | {{message.date.strftime('%H:%M')}} | {{message.date.strftime('%d.%m.%Y')}}</b></font></div>
+                                <div class="bubble sender"><font size="4" face='Arial'>{{message.pmessage}}</font></div>
+                                {% else %}
+                                <p class="bubble recipientname"><font size="4" color="black" face='Arial'><b>Я | {{message.date.strftime('%H:%M')}} | {{message.date.strftime('%d.%m.%Y')}}</b></font></p>
+                                <div class="bubble recipient"><font size="4" face='Arial'>{{message.pmessage}}</font></div>
+                                {% endif %}
+                                {% endfor %}
+                                </section>
+                                </div>
+                                <form action="" method="post" autocomplete="off" class="needs-validation" novalidate>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="UserMessage"><font size="4" color="ghostwhite" face="Arial"><b>Comment</b></font></label>
+                                        <input type="text" class="form-control" name="user_message" id="UserMessage"  placeholder="Сообщение" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-add disabled btn-block" id="MessageAddition"><font size="4" face="Arial"><b>Отправить</b></font></button>
+                                    </div>
+                                </form>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <script>
+                    (function() {
+                        'use strict';
+                        window.addEventListener('load', function() {
+                            var forms = document.getElementsByClassName('needs-validation');
+                            var MessageInput = document.getElementById("UserMessage");
+                            var MessageAddition = document.getElementById('MessageAddition');
+                            var validation = Array.prototype.filter.call(forms, function(form) {
+                                form.addEventListener('MessageAddition', function(event) {
+                                    if (form.checkValidity() === false) {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                }, false);
+                            });
+
+                                    MessageInput.onkeyup = function() {
+                                        if (MessageInput.value.length >= 1) {
+                                            MessageAddition.classList.remove('disabled');
+                                        }
+                                        else {
+                                            MessageAddition.classList.add('disabled');
+                                        }
+                                    }
+                        }, false);
+                    })();
+                </script>
+            <script>
+                var objDiv = document.getElementById("Discussion");
+                objDiv.scrollTop = objDiv.scrollHeight;
+            </script>
+            {% endif %}
+        </div>
+{% endblock %}

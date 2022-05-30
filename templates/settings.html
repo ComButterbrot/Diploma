@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ЭСТ - Администрирование
+{% endblock %}
+
+{% block body %}
+        <div class="blocktextprofile">
+            {% if current_user.is_authenticated and current_user.u_group_id == 1 %}
+            <div class="parent-container d-flex">
+            <div class="container">
+                {% for faculty in all_faculties %}
+                <div class="card-deck mb-3 text-center animationleft">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>{{faculty.faculty_name}}</b></font></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                {% for department in all_departments %}
+                                {% if department.d_faculty_id == faculty.faculty_id %}
+                                <p><a href="faculty={{faculty.faculty_id}}-department={{department.department_id}}" class="btn btn-data btn-block" id="Department"><font size="4" color="white" face='Arial'><b>{{department.department_name}}</b></font></a></p>
+                                {% endif %}
+                                {% endfor %}
+                                <a href="faculty={{faculty.faculty_id}}-secretadmin-adddepartment" class="btn btn-add btn-block" id="NewDepartment"><font size="4" face="Arial"><b>Добавить кафедру</b></font></a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="animationupslow">
+                    <a href="secretadmin-addfaculty" class="btn btn-add btn-block" id="NewActivity"><font size="5" face="Arial"><b>Добавить институт</b></font></a>
+                </div>
+            </div>
+            <div class="container">
+                <div class="card-deck mb-3 text-center animationup">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Компетенции</b></font></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                                <a href="skills" class="btn btn-data btn-block" id="Skills"><font size="4" face="Arial"><b>Список компетенций</b></font></a>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-deck mb-3 text-center animationup">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <h4 class="my-0 font-weight-normal"><font size="5" color="white" face="Arial"><b>Неверифицированные пользователи</b></font></h4>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled mt-3 mb-4">
+                            {% for v_user in v_users %}
+                                <div class="usermanagement">
+                                    <p class="btn btn-user btn-block"><font size="4" color="white" face='Arial'><b>{{v_user.user_login}} | {{v_user.surname}} {{v_user.name}} {{v_user.patronymic}}</b></font></p>
+                                    <p class="verification"><a href="secretadmin-v_user={{ v_user.user_id }}/verify" class="btn btn-verify btn-block" id="Verify"><font size="4" color="white" face='Arial'><b>✔</b></font></a></p>
+                                    <p class="verification"><a href="secretadmin-v_user={{ v_user.user_id }}/decline" class="btn btn-decline btn-block" id="Decline"><font size="4" color="white" face='Arial'><b>✖</b></font></a></p>
+                                </div>
+                            {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            {% endif %}
+        </div>
+{% endblock %}
