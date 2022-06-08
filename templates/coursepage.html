@@ -67,7 +67,7 @@
                                     <div class="bubble sendername"><b><font size="4" color="#559BC6" face='Arial'><a class="projectlink" href="user={{u_comment.user_id}}">{{u_comment.name}} {{u_comment.surname}} ({{u_comment.uc_user_role}})</a></font><font size="4" color="black" face='Arial'> | {{u_comment.date.strftime('%H:%M')}} | {{u_comment.date.strftime('%d.%m.%Y')}}</font></b></div>
                                     <div class="bubble sender"><font size="4" face='Arial'>{{u_comment.user_comment}}</font></div>
                                     {% else %}
-                                    <div class="bubble recipientname"><b><font size="4" color="#EF5C28" face='Arial'>Я ({{u_comment.uc_user_role}})</font><font size="4" color="black" face='Arial'> | {{u_comment.date.strftime('%H:%M')}} | {{u_comment.date.strftime('%d.%m.%Y')}}</font></b></div>
+                                    <div class="bubble recipientname"><b><font size="4" color="#FFB83F" face='Arial'>Я ({{u_comment.uc_user_role}})</font><font size="4" color="black" face='Arial'> | {{u_comment.date.strftime('%H:%M')}} | {{u_comment.date.strftime('%d.%m.%Y')}}</font></b></div>
                                     <div class="bubble recipient"><font size="4" face='Arial'>{{u_comment.user_comment}}</font></div>
                                     {% endif %}
                                     {% endfor %}

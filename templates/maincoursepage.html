@@ -94,9 +94,9 @@
                                     <div class="bubble sender"><font size="4" face='Arial'>{{u_comment.m_user_comment}}</font></div>
                                     {% else %}
                                     {% if u_comment.uc_user_role == "Старший тьютор" or logged_user.uc_user_role == "Тьютор" or logged_user.user_id == current_course.course_creator %}
-                                    <div class="bubble recipientname"><b><font size="4" color="#EF5C28" face='Arial'>Я ({{u_comment.uc_user_role}})</font><font size="4" color="black" face='Arial'> | {{u_comment.date.strftime('%H:%M')}} | {{u_comment.date.strftime('%d.%m.%Y')}}</font></b></div>
+                                    <div class="bubble recipientname"><b><font size="4" color="#FFB83F" face='Arial'>Я ({{u_comment.uc_user_role}})</font><font size="4" color="black" face='Arial'> | {{u_comment.date.strftime('%H:%M')}} | {{u_comment.date.strftime('%d.%m.%Y')}}</font></b></div>
                                     {% else %}
-                                    <div class="bubble recipientname"><b><font size="4" color="#EF5C28" face='Arial'>Я ({{u_comment.course_name}})</font><font size="4" color="black" face='Arial'> | {{u_comment.date.strftime('%H:%M')}} | {{u_comment.date.strftime('%d.%m.%Y')}}</font></b></div>
+                                    <div class="bubble recipientname"><b><font size="4" color="#FFB83F" face='Arial'>Я ({{u_comment.course_name}})</font><font size="4" color="black" face='Arial'> | {{u_comment.date.strftime('%H:%M')}} | {{u_comment.date.strftime('%d.%m.%Y')}}</font></b></div>
                                     {% endif %}
                                     <div class="bubble recipient"><font size="4" face='Arial'>{{u_comment.m_user_comment}}</font></div>
                                     {% endif %}

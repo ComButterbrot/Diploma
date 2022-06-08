@@ -22,7 +22,7 @@
                                 <div class="bubble sendername"><font size="4" color="black" face='Arial'><b><a class="projectlink" href="user={{message.user_id}}">{{message.surname}} {{message.name}} {{message.patronymic}}</a> | {{message.date.strftime('%H:%M')}} | {{message.date.strftime('%d.%m.%Y')}}</b></font></div>
                                 <div class="bubble sender"><font size="4" face='Arial'>{{message.cmessage}}</font></div>
                                 {% else %}
-                                <p class="bubble recipientname"><font size="4" color="black" face='Arial'><b>Я | {{message.date.strftime('%H:%M')}} | {{message.date.strftime('%d.%m.%Y')}}</b></font></p>
+                                <p class="bubble recipientname"><b><font size="4" color="#FFB83F" face='Arial'>Я</font><font size="4" color="black" face='Arial'> | {{message.date.strftime('%H:%M')}} | {{message.date.strftime('%d.%m.%Y')}}</font></b></p>
                                 <div class="bubble recipient"><font size="4" face='Arial'>{{message.cmessage}}</font></div>
                                 {% endif %}
                                 {% endfor %}
@@ -34,7 +34,7 @@
                                         <input type="text" class="form-control" name="user_message" id="UserMessage"  placeholder="Сообщение" required>
                                     </div>
                                     <div class="form-group">
-                                        <button type="submit" class="btn btn-add disabled btn-block" id="MessageAddition"><font size="4" face="Arial"><b>Отправить</b></font></button>
+                                        <button type="submit" class="btn btn-auth disabled btn-block" id="MessageAddition"><font size="4" face="Arial"><b>Отправить</b></font></button>
                                     </div>
                                 </form>
                             </ul>

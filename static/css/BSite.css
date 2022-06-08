@@ -249,15 +249,15 @@ padding: 20%;
 }
 
 .card{
-    background-color: #478FBC;
+    background-color: #707070;
 }
 
 .card.global{
-    background-color: #EF5C28;
+    background-color: #2574A3;
 }
 
 .card.maincourse{
-    background-color: #266E99;
+    background-color: #5E5E5E;
 }
 
 .card-body{
@@ -265,15 +265,15 @@ padding: 20%;
     padding-top: 5px;
     padding-bottom: 0px;
     background-color: #ffffff;
-    border: #478FBC solid 5px;
+    border: #707070 solid 5px;
 }
 
 .card-body.global{
-    border: #EF5C28 solid 5px;
+    border: #2574A3 solid 5px;
 }
 
 .card-body.maincourse{
-    border: #266E99 solid 5px;
+    border: #5E5E5E solid 5px;
 }
 
 .animationup{
@@ -505,19 +505,19 @@ padding: 20%;
 }
 
 .btn-add{
-    background: #7AB5B9;
-    border: #7AB5B9 solid 3px;
+    background: #FFD68C;
+    border: #FFD68C solid 3px;
     color: #ffffff;
 }
 
 .btn-add:hover{
-    background: #92DADD;
-    border: #92DADD solid 3px;
+    background: #FFD072;
+    border: #FFD072 solid 3px;
     color: #ffffff;
 }
 
 .btn-add:focus, .btn-add.focus {
-    box-shadow: 0 0 0 0rem #7AB5B9;
+    box-shadow: 0 0 0 0rem #FFD68C;
     color: #ffffff;
 }
 
@@ -688,37 +688,37 @@ padding: 20%;
 }
 
 .btn-add{
-    background: #FB9A3B;
-    border: #FB9A3B solid 3px;
+    background: #FFC459;
+    border: #FFC459 solid 3px;
     color: #ffffff;
 }
 
 .btn-add:hover{
-    background: #FFA872;
-    border: #FFA872 solid 3px;
+    background: #FFB83F;
+    border: #FFB83F solid 3px;
     color: #ffffff;
 }
 
 .btn-add:focus, .btn-add.focus {
-    box-shadow: 0 0 0 0rem #FB9A3B;
+    box-shadow: 0 0 0 0rem #FFC459;
     color: #ffffff;
 }
 
 .btn-message{
-    background: #FB9A3B;
-    border: #FB9A3B solid 3px;
+    background: #64A9D1;
+    border: #64A9D1 solid 3px;
     color: #ffffff;
     margin-bottom: 40px;
 }
 
 .btn-message:hover{
-    background: #FFA872;
-    border: #FFA872 solid 3px;
+    background: #7AC0E8;
+    border: #7AC0E8 solid 3px;
     color: #ffffff;
 }
 
 .btn-message:focus, .btn-message.focus {
-    box-shadow: 0 0 0 0rem #FB9A3B;
+    box-shadow: 0 0 0 0rem #64A9D1;
     color: #ffffff;
 }
 

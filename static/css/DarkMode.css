@@ -11,7 +11,7 @@ body, html{
 }
 
 .navbar{
-    background: #2574A3;
+    background: #666666;
     height: 80px;
 }
 
@@ -64,9 +64,9 @@ body, html{
     width: 100%;
     margin-top: 80px;
     padding-bottom: 1%;
-    border-left: solid 30px #2574A3;
-    border-right: solid 30px #2574A3;
-    border-bottom: solid 30px #2574A3;
+    border-left: solid 30px #666666;
+    border-right: solid 30px #666666;
+    border-bottom: solid 30px #666666;
     position: relative;
 }
 
@@ -82,7 +82,7 @@ body, html{
     width: 100%;
     padding-top: 10%;
     padding-bottom: 5%;
-    border: solid 30px #2574A3;
+    border: solid 30px #666666;
     position: relative;
 }
 
@@ -98,7 +98,7 @@ body, html{
     width: 100%;
     padding-top: 17%;
     padding-bottom: 10%;
-    border: solid 30px #2574A3;
+    border: solid 30px #666666;
     position: relative;
 }
 
@@ -114,7 +114,7 @@ body, html{
     width: 100%;
     padding-top: 20%;
     padding-bottom: 10%;
-    border: solid 30px #2574A3;
+    border: solid 30px #666666;
     position: relative;
 }
 
@@ -130,7 +130,7 @@ body, html{
     width: 100%;
     padding-top: 20%;
     padding-bottom: 10%;
-    border: solid 30px #2574A3;
+    border: solid 30px #666666;
     position: relative;
 }
 
@@ -146,7 +146,7 @@ body, html{
     width: 100%;
     padding-top: 20%;
     padding-bottom: 10%;
-    border: solid 30px #2574A3;
+    border: solid 30px #666666;
     position: relative;
 }
 
@@ -161,7 +161,7 @@ body, html{
     height:auto !important;
     width: 100%;
     padding-top: 17%;
-    border: solid 30px #2574A3;
+    border: solid 30px #666666;
     position: relative;
 }
 
@@ -177,9 +177,9 @@ body, html{
     width: 100%;
     margin-top: 80px;
     padding-bottom: 1%;
-    border-left: solid 30px #2574A3;
-    border-right: solid 30px #2574A3;
-    border-bottom: solid 30px #2574A3;
+    border-left: solid 30px #666666;
+    border-right: solid 30px #666666;
+    border-bottom: solid 30px #666666;
     position: relative;
 }
 
@@ -238,7 +238,7 @@ body, html{
     margin-top: 2%;
     margin-left: auto;
     margin-right: auto;
-    background-color: #2574A3;
+    background-color: #666666;
     text-shadow: 2px 2px 4px #000000;
     animation: anime-P 0.6s ease-out;
 }
@@ -253,7 +253,7 @@ body, html{
     padding-top: 0%;
     margin-bottom: 3%;
     background-color: #ffffff;
-    border: #2574A3 solid 5px;
+    border: #666666 solid 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 1), 0 20px 20px 0 rgba(0, 0, 0, 1);
     animation: anime-Y 0.8s ease-out;
 }
@@ -383,9 +383,9 @@ body, html{
     height:auto !important;
     width: 100%;
     margin-top: 80px;
-    border-left: solid 30px #2574A3;
-    border-right: solid 30px #2574A3;
-    border-bottom: solid 30px #2574A3;
+    border-left: solid 30px #666666;
+    border-right: solid 30px #666666;
+    border-bottom: solid 30px #666666;
     position: relative;
 }
 
@@ -401,7 +401,7 @@ body, html{
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    border: solid 30px #2574A3;
+    border: solid 30px #666666;
     position: relative;
 }
 
