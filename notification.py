@@ -10,6 +10,6 @@ def send_notification(subject, recipient, body_text):
     system_message['Subject'] = Header(subject, 'utf-8')
     server = smtplib.SMTP(host, 587)
     server.starttls()
-    server.login('ksu.est.adm@gmail.com','D1QV!Ya6Nroh>PBqUJ*tLn>F%g7@#.3P')
+    server.login('ksu.est.adm@gmail.com','ovkuhhqofncmkxso')
     server.sendmail(sender, [recipient], system_message.as_string())
     server.quit()

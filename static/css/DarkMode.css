@@ -12,7 +12,7 @@ body, html{
 
 .navbar{
     background: #666666;
-    height: 80px;
+    min-height: 80px;
 }
 
 .nav-link{
@@ -21,6 +21,15 @@ body, html{
 
 .nav-link:hover{
     color: ghostwhite;
+}
+
+.navbar .navbar-toggler-icon {
+  background-image: url('https://mdbootstrap.com/img/svg/hamburger3.svg?color=FFC459');
+}
+
+.navbar .navbar-toggler-icon:focus, .navbar .navbar-toggler-icon.focus {
+    box-shadow: 0 0 0 0rem #FFC459;
+    color: #ffffff;
 }
 
 .dropdown-menu {

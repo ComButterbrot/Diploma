@@ -7,8 +7,9 @@
 {% block body %}
         <div class="blocktextprofile">
             {% if current_user.is_authenticated and current_user.u_group_id == 1 %}
-            <div class="parent-container d-flex">
-            <div class="container">
+            <div class="container-fluid">
+            <div class="row">
+            <div class="container col-xl-6">
                 {% for faculty in all_faculties %}
                 <div class="card-deck mb-3 text-center animationleft">
                     <div class="card mb-4 shadow-sm">
@@ -32,7 +33,7 @@
                     <a href="secretadmin-addfaculty" class="btn btn-add btn-block" id="NewActivity"><font size="5" face="Arial"><b>Добавить институт</b></font></a>
                 </div>
             </div>
-            <div class="container">
+            <div class="container col-xl-6">
                 <div class="card-deck mb-3 text-center animationup">
                     <div class="card mb-4 shadow-sm">
                         <div class="card-header">
@@ -63,6 +64,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             </div>
             {% endif %}

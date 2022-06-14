@@ -656,6 +656,8 @@ padding: 20%;
 .btn-newactivity{
     background: #559BC6;
     border: #559BC6 solid 3px;
+    overflow: hidden;
+	position: relative;
     color: #ffffff;
 }
 
@@ -673,6 +675,8 @@ padding: 20%;
 .btn-settings{
     background: #053F76;
     border: #053F76 solid 3px;
+    overflow: hidden;
+	position: relative;
     color: #ffffff;
 }
 
@@ -690,6 +694,8 @@ padding: 20%;
 .btn-add{
     background: #FFC459;
     border: #FFC459 solid 3px;
+    overflow: hidden;
+	position: relative;
     color: #ffffff;
 }
 
@@ -708,6 +714,8 @@ padding: 20%;
     background: #64A9D1;
     border: #64A9D1 solid 3px;
     color: #ffffff;
+    overflow: hidden;
+	position: relative;
     margin-bottom: 40px;
 }
 
@@ -726,6 +734,8 @@ padding: 20%;
     text-align: center;
     background: #559BC6;
     border: #559BC6 solid 3px;
+    overflow: hidden;
+	position: relative;
     color: #ffffff;
 }
 
@@ -744,6 +754,8 @@ padding: 20%;
     text-align: center;
     background: #559BC6;
     border: #559BC6 solid 3px;
+    overflow: hidden;
+	position: relative;
     color: #ffffff;
 }
 
@@ -796,6 +808,8 @@ padding: 20%;
     text-align: center;
     background: #559BC6;
     border: #559BC6 solid 3px;
+    overflow: hidden;
+	position: relative;
     color: #ffffff;
 }
 
